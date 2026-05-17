@@ -48,7 +48,7 @@ export default function Chatbot() {
     }, 300);
   };
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (!input.trim()) return;
 
     const userMsg = input.trim();
