@@ -55,22 +55,31 @@ export default function Chatbot() {
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
 
-    // Simulated API call - Since we don't have a real API key provided yet, 
-    // we use an intelligent mocked response based on the language.
+    // Simulated API call
     setTimeout(() => {
       let botReply = "";
       if (lang === "en") {
-        if (userMsg.toLowerCase().includes("risk") || userMsg.toLowerCase().includes("predict")) {
+        const msg = userMsg.toLowerCase();
+        if (msg.includes("risk") || msg.includes("predict")) {
           botReply = "To calculate your heart risk, please click on 'Start Prediction' and enter your medical indicators in the dashboard.";
-        } else if (userMsg.toLowerCase().includes("diet") || userMsg.toLowerCase().includes("food")) {
+        } else if (msg.includes("diet") || msg.includes("food")) {
           botReply = "A heart-healthy diet includes plenty of fruits, vegetables, whole grains, and lean proteins. You'll get personalized diet recommendations after taking the risk assessment!";
+        } else if (msg.includes("download") || msg.includes("report") || msg.includes("pdf")) {
+          botReply = "After taking the risk assessment on the Dashboard, you will see a 'Download PDF Report' button on the results page to save your full analysis.";
+        } else if (msg.includes("name") || msg.includes("website") || msg.includes("who are you")) {
+          botReply = "This platform is called PredictForProtection. It is an AI-powered cardiovascular intelligence tool designed to analyze your heart health.";
         } else {
           botReply = "I am an AI assistant for PredictForProtection. I can help answer questions about our platform or general heart health. Please note I am not a substitute for a doctor.";
         }
       } else {
-        if (userMsg.includes("जोखिम") || userMsg.includes("भविष्यवाणी") || userMsg.includes("टेस्ट")) {
+        const msg = userMsg.toLowerCase();
+        if (msg.includes("जोखिम") || msg.includes("भविष्यवाणी") || msg.includes("टेस्ट")) {
           botReply = "अपने हृदय जोखिम की गणना करने के लिए, कृपया 'विश्लेषण शुरू करें' पर क्लिक करें और डैशबोर्ड में अपने चिकित्सा संकेतक दर्ज करें।";
-        } else if (userMsg.includes("आहार") || userMsg.includes("भोजन") || userMsg.includes("खाना")) {
+        } else if (msg.includes("डाउनलोड") || msg.includes("रिपोर्ट")) {
+          botReply = "डैशबोर्ड पर जोखिम मूल्यांकन करने के बाद, आपको अपना पूरा विश्लेषण सहेजने के लिए परिणाम पृष्ठ पर 'पीडीएफ रिपोर्ट डाउनलोड करें' बटन दिखाई देगा।";
+        } else if (msg.includes("नाम") || msg.includes("वेबसाइट")) {
+          botReply = "इस प्लेटफॉर्म का नाम PredictForProtection है। यह एक एआई-संचालित हृदय संबंधी बुद्धिमत्ता उपकरण है।";
+        } else if (msg.includes("आहार") || msg.includes("भोजन") || msg.includes("खाना")) {
           botReply = "हृदय-स्वस्थ आहार में भरपूर मात्रा में फल, सब्जियां, साबुत अनाज और लीन प्रोटीन शामिल होते हैं। जोखिम मूल्यांकन करने के बाद आपको व्यक्तिगत आहार सिफारिशें मिलेंगी!";
         } else {
           botReply = "मैं PredictForProtection के लिए एक एआई सहायक हूँ। मैं हमारे मंच या सामान्य हृदय स्वास्थ्य के बारे में सवालों के जवाब देने में मदद कर सकता हूँ। कृपया ध्यान दें कि मैं डॉक्टर का विकल्प नहीं हूँ।";
