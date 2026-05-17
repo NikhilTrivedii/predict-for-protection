@@ -1,0 +1,478 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ======================================================
+   PredictForProtection — Design System
+   Warm, soothing, premium medical aesthetic
+   ====================================================== */
+
+:root {
+  /* --- Core Palette --- */
+  --bg-primary: #f8f4ef;
+  --bg-secondary: #f0ebe4;
+  --bg-card: rgba(255, 255, 255, 0.65);
+  --bg-card-hover: rgba(255, 255, 255, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.45);
+  --bg-glass-strong: rgba(255, 255, 255, 0.72);
+
+  --text-primary: #2d2a26;
+  --text-secondary: #6b6560;
+  --text-muted: #9a9490;
+  --text-accent: #c4384b;
+
+  --accent-rose: #c4384b;
+  --accent-rose-soft: #e8666f;
+  --accent-rose-glow: rgba(196, 56, 75, 0.15);
+  --accent-gold: #d4a574;
+  --accent-gold-soft: #e5c8a8;
+  --accent-sage: #7d9e7d;
+  --accent-blue: #5a8fb4;
+
+  --border-light: rgba(196, 56, 75, 0.08);
+  --border-medium: rgba(45, 42, 38, 0.08);
+
+  --shadow-soft: 0 4px 30px rgba(196, 56, 75, 0.06);
+  --shadow-medium: 0 8px 40px rgba(196, 56, 75, 0.1);
+  --shadow-glow: 0 0 60px rgba(196, 56, 75, 0.12);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+
+/* ======================================================
+   Base Styles
+   ====================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-dm-sans), 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ======================================================
+   Scrollbar
+   ====================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold-soft);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-rose-soft);
+}
+
+/* ======================================================
+   Selection
+   ====================================================== */
+
+::selection {
+  background: rgba(196, 56, 75, 0.15);
+  color: var(--accent-rose);
+}
+
+/* ======================================================
+   Glassmorphism Components
+   ====================================================== */
+
+@layer components {
+  .glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-4px);
+    border-color: rgba(196, 56, 75, 0.15);
+  }
+
+  .glass-nav {
+    background: var(--bg-glass-strong);
+    backdrop-filter: blur(25px) saturate(1.4);
+    -webkit-backdrop-filter: blur(25px) saturate(1.4);
+    border-bottom: 1px solid var(--border-medium);
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent-rose) 0%, var(--accent-gold) 50%, var(--accent-rose-soft) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-dark {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-rose) 0%, #d44a5a 100%);
+    color: white;
+    padding: 14px 36px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 25px rgba(196, 56, 75, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .btn-primary:hover::before {
+    transform: translateX(100%);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(196, 56, 75, 0.35);
+  }
+
+  .btn-secondary {
+    background: var(--bg-glass);
+    backdrop-filter: blur(15px);
+    color: var(--text-primary);
+    padding: 14px 36px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-rose);
+    color: var(--accent-rose);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    background: var(--accent-rose-glow);
+    border: 1px solid rgba(196, 56, 75, 0.12);
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-rose);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+}
+
+/* ======================================================
+   The Rotating Heart Background
+   ====================================================== */
+
+.heart-bg-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85vmin;
+  height: 85vmin;
+  z-index: 0;
+  pointer-events: none;
+  filter: saturate(0.5) brightness(1.1);
+}
+
+.heart-bg-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(196, 56, 75, 0.4) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: -1;
+  animation: pulseSoft 3s ease-in-out infinite;
+}
+
+.heart-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: rotateHeart 25s linear infinite;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+
+@keyframes rotateHeart {
+  0% {
+    transform: perspective(1200px) rotateY(0deg) rotateX(10deg) scale(1);
+  }
+  25% {
+    transform: perspective(1200px) rotateY(90deg) rotateX(-15deg) scale(1.15);
+  }
+  50% {
+    transform: perspective(1200px) rotateY(180deg) rotateX(10deg) scale(1);
+  }
+  75% {
+    transform: perspective(1200px) rotateY(270deg) rotateX(-15deg) scale(1.15);
+  }
+  100% {
+    transform: perspective(1200px) rotateY(360deg) rotateX(10deg) scale(1);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ======================================================
+   Ambient Background Effects
+   ====================================================== */
+
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(196, 56, 75, 0.06), transparent 70%);
+  top: -10%;
+  right: -10%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.ambient-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.08), transparent 70%);
+  bottom: -5%;
+  left: -5%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.ambient-orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(125, 158, 125, 0.06), transparent 70%);
+  top: 40%;
+  left: 10%;
+  animation: float 12s ease-in-out infinite 2s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-15px) translateX(8px);
+  }
+  66% {
+    transform: translateY(10px) translateX(-5px);
+  }
+}
+
+/* ======================================================
+   Medical Grid Overlay
+   ====================================================== */
+
+.medical-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(196, 56, 75, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 56, 75, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+
+/* ======================================================
+   Scan Line Effect
+   ====================================================== */
+
+.scan-line {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(196, 56, 75, 0.08), transparent);
+  z-index: 0;
+  pointer-events: none;
+  animation: scanLine 6s linear infinite;
+}
+
+@keyframes scanLine {
+  0% {
+    top: -5%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+/* ======================================================
+   Animated Counters
+   ====================================================== */
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ======================================================
+   Feature Icon Container
+   ====================================================== */
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.3));
+  border-radius: inherit;
+}
+
+/* ======================================================
+   Step Connector
+   ====================================================== */
+
+.step-connector {
+  position: absolute;
+  top: 35px;
+  left: calc(50% + 35px);
+  width: calc(100% - 70px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-rose), var(--accent-gold));
+  opacity: 0.3;
+}
+
+/* ======================================================
+   Responsive Adjustments
+   ====================================================== */
+
+@media (max-width: 768px) {
+  .heart-bg-container {
+    width: 110vmin;
+    height: 110vmin;
+  }
+
+  .heart-bg-image {
+    opacity: 0.15;
+  }
+}
+
+@media (max-width: 480px) {
+  .heart-bg-container {
+    width: 130vmin;
+    height: 130vmin;
+  }
+}
+
+/* ======================================================
+   Page Transition Overlay
+   ====================================================== */
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-primary);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ======================================================
+   PDF Export Mode Styles
+   ====================================================== */
+
+.pdf-export-mode {
+  width: 1000px !important; /* Force a standard width for A4 ratio */
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 40px !important;
+  border-radius: 0 !important;
+  background: #fdf8f0 !important; /* Match cream theme perfectly */
+}
+
+.pdf-export-mode .glass-card {
+  box-shadow: none !important;
+  border: 1px solid #e5c8a8 !important; /* Hardcode borders so they print cleanly */
+  background: white !important;
+}
