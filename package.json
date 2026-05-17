@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@google/genai": "^0.1.2",
+    "@google/genai": "latest",
     "framer-motion": "^11.15.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",

@@ -237,11 +237,11 @@ export default function Results() {
                   <path d="M50 20 V85" stroke="rgba(0,0,0,0.1)" strokeWidth="1" strokeDasharray="2,2"/>
                   <path d="M10 40 H90" stroke="rgba(0,0,0,0.1)" strokeWidth="1" strokeDasharray="2,2"/>
                   {/* Left Atrium / High BP */}
-                  {data.trestbps > 140 && <circle cx="35" cy="35" r="8" fill="#ef4444" opacity="0.6" className="animate-pulse" />}
+                  {data?.trestbps > 140 && <circle cx="35" cy="35" r="8" fill="#ef4444" opacity="0.6" className="animate-pulse" />}
                   {/* Right Ventricle / Cholesterol */}
-                  {data.chol > 240 && <circle cx="65" cy="60" r="8" fill="#ef4444" opacity="0.6" className="animate-pulse" />}
+                  {data?.chol > 240 && <circle cx="65" cy="60" r="8" fill="#ef4444" opacity="0.6" className="animate-pulse" />}
                   {/* Chest Pain Indicator */}
-                  {data.cp > 0 && <circle cx="50" cy="45" r="10" fill="#ef4444" opacity="0.7" className="animate-ping" />}
+                  {data?.cp > 0 && <circle cx="50" cy="45" r="10" fill="#ef4444" opacity="0.7" className="animate-ping" />}
                 </svg>
                 <p className="text-[10px] text-gray-400 text-center mt-2 font-semibold tracking-wider uppercase">Interactive Map</p>
               </div>
