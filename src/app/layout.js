@@ -2,6 +2,7 @@ import { Outfit, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Chatbot from "@/components/Chatbot";
+import CursorGlow from "@/components/CursorGlow";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${outfit.variable} ${dmSans.variable}`}>
       <body className="antialiased">
         <LanguageProvider>
+          <CursorGlow />
           {children}
           <Chatbot />
         </LanguageProvider>

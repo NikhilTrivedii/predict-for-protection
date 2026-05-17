@@ -103,9 +103,25 @@ export default function Results() {
       setResult(data);
       setLoading(false);
     })
-    .catch(err => {
+    .catch(async err => {
       console.warn("Python backend unreachable, using fallback mock", err);
-      setResult(fallbackMockPrediction(parsedData));
+      const mockResult = fallbackMockPrediction(parsedData);
+      
+      try {
+        const aiResponse = await fetch("/api/recommendations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(parsedData)
+        });
+        const aiData = await aiResponse.json();
+        if (aiData.recommendations) {
+           mockResult.recommendations = aiData.recommendations;
+        }
+      } catch(aiErr) {
+        console.error("Gemini AI fetch failed, using static recommendations", aiErr);
+      }
+
+      setResult(mockResult);
       setLoading(false);
     });
   }, [router]);
@@ -117,8 +133,18 @@ export default function Results() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f8f4ef] flex flex-col items-center justify-center">
-        <div className="w-16 h-16 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-gray-600 font-heading">Analyzing medical indicators...</p>
+        <svg width="200" height="100" viewBox="0 0 200 100" className="mb-4 drop-shadow-md">
+          <polyline 
+            className="ecg-line" 
+            fill="none" 
+            stroke="#c4384b" 
+            strokeWidth="3" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            points="0,50 40,50 50,20 60,80 70,10 80,90 90,50 130,50 140,30 150,70 160,50 200,50" 
+          />
+        </svg>
+        <p className="text-gray-600 font-heading animate-pulse tracking-wide font-semibold">Analyzing medical indicators...</p>
       </div>
     );
   }
@@ -202,6 +228,22 @@ export default function Results() {
               <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold ${result.is_high_risk ? "bg-red-50 text-red-600 border border-red-100" : "bg-emerald-50 text-emerald-600 border border-emerald-100"}`}>
                 {result.is_high_risk ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
                 {result.is_high_risk ? t.results.highRisk : t.results.lowRisk}
+              </div>
+
+              {/* Interactive Heart Map */}
+              <div className="mt-8 relative w-32 h-32">
+                <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-sm">
+                  <path d="M50 85 C50 85, 10 55, 10 30 A20 20 0 0 1 50 20 A20 20 0 0 1 90 30 C90 55, 50 85, 50 85 Z" fill={result.is_high_risk ? "#fee2e2" : "#d1fae5"} stroke={result.is_high_risk ? "#ef4444" : "#10b981"} strokeWidth="2"/>
+                  <path d="M50 20 V85" stroke="rgba(0,0,0,0.1)" strokeWidth="1" strokeDasharray="2,2"/>
+                  <path d="M10 40 H90" stroke="rgba(0,0,0,0.1)" strokeWidth="1" strokeDasharray="2,2"/>
+                  {/* Left Atrium / High BP */}
+                  {data.trestbps > 140 && <circle cx="35" cy="35" r="8" fill="#ef4444" opacity="0.6" className="animate-pulse" />}
+                  {/* Right Ventricle / Cholesterol */}
+                  {data.chol > 240 && <circle cx="65" cy="60" r="8" fill="#ef4444" opacity="0.6" className="animate-pulse" />}
+                  {/* Chest Pain Indicator */}
+                  {data.cp > 0 && <circle cx="50" cy="45" r="10" fill="#ef4444" opacity="0.7" className="animate-ping" />}
+                </svg>
+                <p className="text-[10px] text-gray-400 text-center mt-2 font-semibold tracking-wider uppercase">Interactive Map</p>
               </div>
             </div>
 

@@ -476,3 +476,17 @@ body {
   border: 1px solid #e5c8a8 !important; /* Hardcode borders so they print cleanly */
   background: white !important;
 }
+
+/* ======================================================
+   ECG Heartbeat Animation
+   ====================================================== */
+.ecg-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawEcg 2.5s linear infinite;
+}
+
+@keyframes drawEcg {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}

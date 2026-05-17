@@ -74,7 +74,38 @@ export default function Dashboard() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 text-rose-600 text-sm font-semibold mb-4">
             <Activity size={16} /> {t.dashboard.title}
           </div>
-          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3">{t.dashboard.subtitle}</h1>
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-8">{t.dashboard.subtitle}</h1>
+          
+          {/* Demo Profiles */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <button 
+              onClick={() => {
+                const data = { age: "65", sex: "1", cp: "3", trestbps: "160", chol: "280", fbs: "1", restecg: "2", thalach: "120", exang: "1", oldpeak: "2.5", slope: "2", ca: "2", thal: "3" };
+                setFormData(data); localStorage.setItem("userMedicalProfile", JSON.stringify(data));
+              }}
+              className="px-4 py-2 rounded-xl bg-red-50 text-red-600 border border-red-100 font-semibold text-sm hover:bg-red-100 transition-colors flex items-center gap-2"
+            >
+              🔴 Load High Risk Patient
+            </button>
+            <button 
+              onClick={() => {
+                const data = { age: "55", sex: "0", cp: "1", trestbps: "130", chol: "240", fbs: "0", restecg: "1", thalach: "150", exang: "0", oldpeak: "1.0", slope: "1", ca: "1", thal: "2" };
+                setFormData(data); localStorage.setItem("userMedicalProfile", JSON.stringify(data));
+              }}
+              className="px-4 py-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 font-semibold text-sm hover:bg-amber-100 transition-colors flex items-center gap-2"
+            >
+              🟡 Load Borderline Patient
+            </button>
+            <button 
+              onClick={() => {
+                const data = { age: "35", sex: "1", cp: "0", trestbps: "115", chol: "180", fbs: "0", restecg: "0", thalach: "180", exang: "0", oldpeak: "0", slope: "0", ca: "0", thal: "0" };
+                setFormData(data); localStorage.setItem("userMedicalProfile", JSON.stringify(data));
+              }}
+              className="px-4 py-2 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 font-semibold text-sm hover:bg-emerald-100 transition-colors flex items-center gap-2"
+            >
+              🟢 Load Healthy Patient
+            </button>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8">
