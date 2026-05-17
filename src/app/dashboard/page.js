@@ -15,14 +15,32 @@ export default function Dashboard() {
     oldpeak: "", slope: "1", ca: "0", thal: "2"
   });
 
+  // Load saved data from localStorage when the component mounts (Returning User feature)
+  useEffect(() => {
+    const saved = localStorage.getItem("userMedicalProfile");
+    if (saved) {
+      try {
+        setFormData(JSON.parse(saved));
+      } catch (e) {
+        console.error("Error loading saved data", e);
+      }
+    }
+  }, []);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const updatedData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(updatedData);
+    // Auto-save to localStorage so they never lose progress
+    localStorage.setItem("userMedicalProfile", JSON.stringify(updatedData));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Save to session storage so the results page and PDF generator can access it
+    // Save to session storage so the results page and PDF generator can access it for this session
     sessionStorage.setItem("medicalData", JSON.stringify(formData));
+    // Final save to localStorage for future visits
+    localStorage.setItem("userMedicalProfile", JSON.stringify(formData));
+    
     // Since we don't have the Python backend running in this pure frontend mock yet,
     // we'll navigate to results and the results page will fetch from the backend.
     router.push("/results");
